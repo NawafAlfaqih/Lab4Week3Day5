@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -8,15 +9,13 @@ public class Main {
     }
 
     private static void startTest() {
-        Scanner input = new Scanner(System.in);
         System.out.println("===== Welcome to Shapes Program's test CLI =====");
         System.out.println();
         System.out.println("1. Show Circle Class test.");
         System.out.println("2. Show Rectangle Class test.");
         System.out.println("3. Show Triangle Class test.");
-        System.out.println("Choose a number to Start the test, or (0) to exit -> ");
 
-        int choice = input.nextInt();
+        int choice = readIntInRange(0, 3, "Choose a number to Start the test, or (0) to exit -> ");
         switch (choice) {
 
             case 1:
@@ -94,5 +93,38 @@ public class Main {
         System.out.printf("The Circumference of Circle c1 Object = %.2f \n", c1.calculateCircumference());
 
         System.out.println();
+    }
+
+    private static int readIntInRange(int from, int to, String message) throws IllegalArgumentException{
+        Scanner input = new Scanner(System.in);
+
+        try {
+            if(from > to)
+                throw new IllegalArgumentException("Invalid Range argument for reading int!!!");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            startTest(); //restart game
+        }
+
+        boolean valid = false;
+        int number = 0;
+        do {
+            try {
+                System.out.print(message);
+                number = input.nextInt();
+                if(number < from || number > to)
+                    throw new ArithmeticException("Number is not in range ("+from+"-"+to+"), try again.");
+                valid = true;
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Not a number, try again.");
+                input.next();
+            }
+            catch (ArithmeticException e){
+                System.out.println(e.getMessage());
+            }
+        } while (!valid);
+
+        return number;
     }
 }
