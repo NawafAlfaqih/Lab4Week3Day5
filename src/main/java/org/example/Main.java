@@ -14,8 +14,9 @@ public class Main {
         System.out.println("1. Show Circle Class test.");
         System.out.println("2. Show Rectangle Class test.");
         System.out.println("3. Show Triangle Class test.");
+        System.out.println("4. Show Edge Cases test.");
 
-        int choice = readIntInRange(0, 3, "Choose a number to Start the test, or (0) to exit -> ");
+        int choice = readIntInRange(0, 4, "Choose a number to Start the test, or (0) to exit -> ");
         switch (choice) {
 
             case 1:
@@ -30,6 +31,10 @@ public class Main {
                 triangleTest();
                 break;
 
+            case 4:
+                edgeCaseTest();
+                break;
+
             case 0:
                 System.exit(0);
                 break;
@@ -39,6 +44,30 @@ public class Main {
                 System.out.println();
                 startTest();
         }
+    }
+
+    private static void edgeCaseTest() {
+
+        System.out.println("===== Edge Cases Test =====");
+        System.out.println("===== Edge Case 1 =====");
+        System.out.println("Setting radius for Circle c1 = 0");
+        Circle c1 = new Circle(0);
+        System.out.printf("The Area of Circle c1 Object = %.2f \n", c1.calculateArea());
+        System.out.printf("The Circumference of Circle c1 Object = %.2f \n", c1.calculateCircumference());
+
+        System.out.println();
+
+        System.out.println("===== Edge Case 2 =====");
+        System.out.println("Inputting a letter in int");
+        int choice = readIntInRange(-999999999, 999999999, "You are now prompted to input a number, try a letter -> ");
+
+        System.out.println();
+
+        System.out.println("===== Edge Case 3 =====");
+        System.out.println("Inputting a out of range number in int");
+        choice = readIntInRange(1, 100, "You are now prompted to input a number in range (1-100), try out of range -> ");
+
+        System.out.println();
     }
 
     private static void triangleTest() {
