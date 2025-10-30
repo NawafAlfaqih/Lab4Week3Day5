@@ -72,16 +72,26 @@ public class Main {
 
     private static void triangleTest() {
         System.out.println("===== Triangle Test =====");
-        Triangle tri1 = new Triangle(8, 10);
-        Triangle tri2 = new Triangle(5, 6);
-        Triangle tri3 = new Triangle(8, 9);
+
+        double height = 0, base = 0;
+        height = readDoubleInRange(-999999,999999,"Enter Height for Object tri1 ->");
+        base = readDoubleInRange(-999999,999999,"Enter Base for Object tri1 ->");
+        Triangle tri1 = new Triangle(height, base);
+
+        height = readDoubleInRange(-999999,999999,"Enter Height for Object tri2 ->");
+        base = readDoubleInRange(-999999,999999,"Enter Base for Object tri2 ->");
+        Triangle tri2 = new Triangle(height, base);
+
+        height = readDoubleInRange(-999999,999999,"Enter Height for Object tri3 ->");
+        base = readDoubleInRange(-999999,999999,"Enter Base for Object tri3 ->");
+        Triangle tri3 = new Triangle(height, base);
 
         System.out.println("Triangle tri2 height: " + tri2.getHeight());
         System.out.println("Triangle tri2 base: " + tri2.getBase());
         tri3.setHeight(10);
         tri3.setBase(12);
-        System.out.println("Triangle tri3 height after using Mutator: " + tri3.getHeight());
-        System.out.println("Triangle tri3 width after using Mutator: " + tri3.getBase());
+        System.out.println("Triangle tri3 height after using Mutator and setting it to 10: " + tri3.getHeight());
+        System.out.println("Triangle tri3 width after using Mutator and setting it to 12: " + tri3.getBase());
         System.out.println();
         System.out.printf("The Area of Triangle tri1 Object = %.2f \n", tri1.calculateArea());
         System.out.printf("The Perimeter of Triangle tri1 Object = %.2f \n", tri1.calculateCircumference());
@@ -91,16 +101,26 @@ public class Main {
 
     private static void rectangleTest() {
         System.out.println("===== Rectangle Test =====");
-        Rectangle rec1 = new Rectangle(7, 9);
-        Rectangle rec2 = new Rectangle(10, 15);
-        Rectangle rec3 = new Rectangle(8, 5);
+
+        double height = 0, width = 0;
+        height = readDoubleInRange(-999999,999999,"Enter Height for Object rec1 ->");
+        width = readDoubleInRange(-999999,999999,"Enter Width for Object rec1 ->");
+        Rectangle rec1 = new Rectangle(height, width);
+
+        height = readDoubleInRange(-999999,999999,"Enter Height for Object rec2 ->");
+        width = readDoubleInRange(-999999,999999,"Enter Width for Object rec2 ->");
+        Rectangle rec2 = new Rectangle(height, width);
+
+        height = readDoubleInRange(-999999,999999,"Enter Height for Object rec3 ->");
+        width = readDoubleInRange(-999999,999999,"Enter Width for Object rec3 ->");
+        Rectangle rec3 = new Rectangle(height, width);
 
         System.out.println("Rectangle rec2 height: " + rec2.getHeight());
         System.out.println("Rectangle rec2 width: " + rec2.getWidth());
         rec3.setHeight(12);
         rec3.setWidth(6);
-        System.out.println("Rectangle rec3 height after using Mutator: " + rec3.getHeight());
-        System.out.println("Rectangle rec3 width after using Mutator: " + rec3.getWidth());
+        System.out.println("Rectangle rec3 height after using Mutator and setting it to 12: " + rec3.getHeight());
+        System.out.println("Rectangle rec3 width after using Mutator and setting it to 6: " + rec3.getWidth());
         System.out.println();
         System.out.printf("The Area of Rectangle rec1 Object = %.2f \n", rec1.calculateArea());
         System.out.printf("The Perimeter of Rectangle rec1 Object = %.2f \n", rec1.calculateCircumference());
@@ -110,13 +130,18 @@ public class Main {
 
     private static void circleTest() {
         System.out.println("===== Circle Test =====");
-        Circle c1 = new Circle(15);
-        Circle c2 = new Circle(10);
-        Circle c3 = new Circle(20);
+
+        double radius = 0;
+        radius = readDoubleInRange(-999999,999999,"Enter Radius for Object c1 ->");
+        Circle c1 = new Circle(radius);
+        radius = readDoubleInRange(-999999,999999,"Enter Radius for Object c2 ->");
+        Circle c2 = new Circle(radius);
+        radius = readDoubleInRange(-999999,999999,"Enter Radius for Object c3 ->");
+        Circle c3 = new Circle(radius);
 
         System.out.println("Circle c2 radius: " + c2.getRadius());
         c3.setRadius(12);
-        System.out.println("Circle c3 radius after using Mutator: " + c3.getRadius());
+        System.out.println("Circle c3 radius after using Mutator and setting it to 12 : " + c3.getRadius());
         System.out.println();
         System.out.printf("The Area of Circle c1 Object = %.2f \n", c1.calculateArea());
         System.out.printf("The Circumference of Circle c1 Object = %.2f \n", c1.calculateCircumference());
@@ -132,7 +157,7 @@ public class Main {
                 throw new IllegalArgumentException("Invalid Range argument for reading int!!!");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            startTest(); //restart game
+            startTest();
         }
 
         boolean valid = false;
@@ -141,6 +166,39 @@ public class Main {
             try {
                 System.out.print(message);
                 number = input.nextInt();
+                if(number < from || number > to)
+                    throw new ArithmeticException("Number is not in range ("+from+"-"+to+"), try again.");
+                valid = true;
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Not a number, try again.");
+                input.next();
+            }
+            catch (ArithmeticException e){
+                System.out.println(e.getMessage());
+            }
+        } while (!valid);
+
+        return number;
+    }
+
+    private static double readDoubleInRange(double from, double to, String message) throws IllegalArgumentException{
+        Scanner input = new Scanner(System.in);
+
+        try {
+            if(from > to)
+                throw new IllegalArgumentException("Invalid Range argument for reading int!!!");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            startTest();
+        }
+
+        boolean valid = false;
+        double number = 0;
+        do {
+            try {
+                System.out.print(message);
+                number = input.nextDouble();
                 if(number < from || number > to)
                     throw new ArithmeticException("Number is not in range ("+from+"-"+to+"), try again.");
                 valid = true;
